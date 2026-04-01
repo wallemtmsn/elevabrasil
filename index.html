@@ -892,13 +892,14 @@
   </button>
 
   <!-- ========== COURSE MODAL ========== -->
+
   <div id="course-modal" class="modal-backdrop hidden fixed inset-0 z-[60] bg-black/60 items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Detalhes do curso">
     <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-      <!-- Header with image -->
-      <div class="relative">
-        <img id="modal-image" src="" alt="" class="w-full h-56 object-cover rounded-t-2xl bg-steel-100">
+      <!-- Header with image - AJUSTADO PARA EXIBIR IMAGEM INTEIRA -->
+      <div class="relative bg-steel-100 rounded-t-2xl">
+        <img id="modal-image" src="" alt="" class="w-full h-56 object-contain bg-steel-100 rounded-t-2xl">
         <button onclick="closeCourseModal()" aria-label="Fechar modal"
-                class="absolute top-3 right-3 w-9 h-9 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors">
+                class="absolute top-3 right-3 w-9 h-9 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors z-10">
           <svg class="w-5 h-5 text-steel-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
@@ -907,7 +908,7 @@
 
       <!-- Body -->
       <div class="p-6">
-        <h2 id="modal-title" class="font-heading font-bold text-xl text-navy-500 mb-2"></h2>
+        <h2 id="modal-title" class="font-heading font-bold text-xl text-navy-800 mb-2"></h2>
 
         <div class="flex items-center gap-3 mb-4">
           <span class="course-hours text-sm">
@@ -920,7 +921,7 @@
         <p id="modal-description" class="text-steel-600 text-sm leading-relaxed mb-6"></p>
 
         <a id="modal-whatsapp" href="#" target="_blank" rel="noopener noreferrer"
-           class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition-colors text-sm">
+          class="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition-colors text-sm">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.638l4.72-1.228A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.239 0-4.308-.726-5.992-1.956l-.418-.314-2.786.725.752-2.727-.344-.432A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
           Matrícula via WhatsApp
         </a>
