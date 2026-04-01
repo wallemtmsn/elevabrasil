@@ -166,6 +166,35 @@
     });
   });
 
+  // ===== APOIO MODAL =====
+  var apoioModal = document.getElementById('apoio-modal');
+
+  window.openApoioModal = function () {
+    if (!apoioModal) return;
+    apoioModal.classList.remove('hidden');
+    apoioModal.classList.add('flex');
+    requestAnimationFrame(function () {
+      apoioModal.classList.add('active');
+    });
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeApoioModal = function () {
+    if (!apoioModal) return;
+    apoioModal.classList.remove('active');
+    setTimeout(function () {
+      apoioModal.classList.add('hidden');
+      apoioModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }, 250);
+  };
+
+  if (apoioModal) {
+    apoioModal.addEventListener('click', function (e) {
+      if (e.target === apoioModal) closeApoioModal();
+    });
+  }
+
   // ===== COURSE MODAL =====
   var modal = document.getElementById('course-modal');
 
@@ -350,4 +379,41 @@
       }
     });
   }
+
+  // ========== APOIO MODAL ==========
+function openApoioModal() {
+  const modal = document.getElementById('apoio-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeApoioModal() {
+  const modal = document.getElementById('apoio-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+}
+
+// Fechar modal ao clicar no backdrop
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById('apoio-modal');
+  if (modal && !modal.classList.contains('hidden') && event.target === modal) {
+    closeApoioModal();
+  }
+});
+
+// Fechar modal com tecla ESC
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const modal = document.getElementById('apoio-modal');
+    if (modal && !modal.classList.contains('hidden')) {
+      closeApoioModal();
+    }
+  }
+});
 })();
