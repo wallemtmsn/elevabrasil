@@ -5,31 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administração — Eleva Brasil</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            navy: {
-              50: '#eef2f7', 100: '#d4dde8', 200: '#a9bbcf', 300: '#7e99b7',
-              400: '#53779e', 500: '#1e3a5f', 600: '#182e4c', 700: '#122339',
-              800: '#0c1726', 900: '#060c13',
-            },
-            brand: { red: '#c41e3a', 'red-dark': '#a01830', 'red-light': '#e8334f' },
-            steel: {
-              50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
-              400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155',
-              800: '#1e293b', 900: '#0f172a',
-            }
+            navy: { 50:'#eef2f7',100:'#d4dde8',200:'#a9bbcf',300:'#7e99b7',400:'#53779e',500:'#1e3a5f',600:'#182e4c',700:'#122339',800:'#0c1726',900:'#060c13' },
+            brand: { red:'#c41e3a','red-dark':'#a01830','red-light':'#e8334f' },
+            steel: { 50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',300:'#cbd5e1',400:'#94a3b8',500:'#64748b',600:'#475569',700:'#334155',800:'#1e293b',900:'#0f172a' }
           },
-          fontFamily: { heading: ['Montserrat', 'sans-serif'], body: ['Inter', 'sans-serif'] }
+          fontFamily: { heading:['Montserrat','sans-serif'], body:['Inter','sans-serif'] }
         }
       }
     }
@@ -38,37 +28,33 @@
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .sidebar-link {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.625rem 1rem; border-radius: 0.75rem;
-      font-size: 0.875rem; font-weight: 500; color: #cbd5e1;
-      background: transparent; border: none; width: 100%;
-      text-align: left; cursor: pointer;
-      transition: color 0.2s, background-color 0.2s;
-    }
-    .sidebar-link:hover { color: #fff; background: rgba(255,255,255,0.1); }
-    .sidebar-link.active { color: #fff; background: rgba(255,255,255,0.15); font-weight: 600; }
-    .panel-section { display: none; }
-    .panel-section.active { display: block; }
-    .stat-card { transition: transform 0.2s, box-shadow 0.2s; }
-    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
-    tr.aluno-row { cursor: pointer; transition: background 0.15s; }
-    tr.aluno-row:hover { background: #f1f5f9; }
-    .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-    .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; padding: 1rem; }
-    .modal-overlay.open { display: flex; }
+    .sidebar-link { display:flex;align-items:center;gap:0.75rem;padding:0.625rem 1rem;border-radius:0.75rem;font-size:0.875rem;font-weight:500;color:#cbd5e1;background:transparent;border:none;width:100%;text-align:left;cursor:pointer;transition:color 0.2s,background-color 0.2s; }
+    .sidebar-link:hover { color:#fff;background:rgba(255,255,255,0.1); }
+    .sidebar-link.active { color:#fff;background:rgba(255,255,255,0.15);font-weight:600; }
+    .panel-section { display:none; }
+    .panel-section.active { display:block; }
+    .stat-card { transition:transform 0.2s,box-shadow 0.2s; }
+    .stat-card:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.10); }
+    tr.data-row { cursor:pointer;transition:background 0.15s; }
+    tr.data-row:hover { background:#f1f5f9; }
+    .modal-overlay { position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;padding:1rem; }
+    .modal-overlay.open { display:flex; }
+    .inp { width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#1e293b;outline:none;box-sizing:border-box; }
+    .inp:focus { border-color:#1e3a5f; }
+    .inp:read-only { background:#f8fafc;color:#94a3b8; }
+    .lbl { display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem; }
   </style>
 </head>
 <body class="bg-steel-100 min-h-screen">
 
-<!-- ===== LOADING SCREEN ===== -->
+<!-- LOADING -->
 <div id="loading-screen" style="position:fixed;inset:0;z-index:9999;background:#1e3a5f;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
   <img src="assets/img/logo.png" alt="Eleva Brasil" style="height:48px;object-fit:contain;filter:brightness(0) invert(1);" onerror="this.style.display='none'">
   <div style="width:40px;height:40px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
   <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 </div>
 
-<!-- ===== ACCESS DENIED ===== -->
+<!-- ACESSO NEGADO -->
 <div id="access-denied" style="display:none;position:fixed;inset:0;z-index:9998;background:#f8fafc;align-items:center;justify-content:center;">
   <div style="text-align:center;padding:2rem;">
     <div style="font-size:4rem;">🔒</div>
@@ -78,12 +64,11 @@
   </div>
 </div>
 
-<!-- ===== LAYOUT PRINCIPAL ===== -->
+<!-- APP -->
 <div id="app" style="display:none;min-height:100vh;">
 
   <!-- SIDEBAR -->
-  <aside id="sidebar" style="position:fixed;top:0;left:0;height:100vh;width:256px;background:#1e3a5f;display:flex;flex-direction:column;z-index:100;transition:transform 0.3s;">
-    <!-- Logo -->
+  <aside style="position:fixed;top:0;left:0;height:100vh;width:256px;background:#1e3a5f;display:flex;flex-direction:column;z-index:100;">
     <div style="padding:1.5rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);">
       <div style="display:flex;align-items:center;gap:0.75rem;">
         <img src="assets/img/logo.png" alt="Logo" style="height:32px;object-fit:contain;filter:brightness(0) invert(1);" onerror="this.style.display='none'">
@@ -94,19 +79,21 @@
       </div>
     </div>
 
-    <!-- Nav -->
     <nav style="flex:1;padding:1rem 0.75rem;display:flex;flex-direction:column;gap:0.25rem;">
-      <button class="sidebar-link active" onclick="showSection('dashboard')">
+      <button class="sidebar-link active" id="nav-dashboard" onclick="showSection('dashboard')">
         <svg style="width:18px;height:18px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         Dashboard
       </button>
-      <button class="sidebar-link" onclick="showSection('alunos')">
+      <button class="sidebar-link" id="nav-alunos" onclick="showSection('alunos')">
         <svg style="width:18px;height:18px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         Alunos
       </button>
+      <button class="sidebar-link" id="nav-cursos" onclick="showSection('cursos')">
+        <svg style="width:18px;height:18px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        Cursos
+      </button>
     </nav>
 
-    <!-- Admin info + logout -->
     <div style="padding:1rem 0.75rem;border-top:1px solid rgba(255,255,255,0.1);">
       <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
         <div id="admin-avatar" style="width:34px;height:34px;border-radius:50%;background:#c41e3a;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0;">AD</div>
@@ -122,10 +109,9 @@
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main style="margin-left:256px;min-height:100vh;display:flex;flex-direction:column;">
 
-    <!-- TOP BAR -->
     <header style="background:#fff;border-bottom:1px solid #e2e8f0;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;">
       <div>
         <h1 id="page-title" style="font-family:Montserrat,sans-serif;font-weight:700;font-size:1.125rem;color:#1e3a5f;">Dashboard</h1>
@@ -137,13 +123,10 @@
       </a>
     </header>
 
-    <!-- CONTENT AREA -->
     <div style="flex:1;padding:1.5rem;">
 
       <!-- ===== DASHBOARD ===== -->
       <section id="section-dashboard" class="panel-section active">
-
-        <!-- Stat cards -->
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem;">
 
           <div class="stat-card" style="background:#fff;border-radius:16px;padding:1.25rem 1.5rem;border:1px solid #e2e8f0;">
@@ -179,6 +162,17 @@
             <p style="font-size:0.75rem;color:#94a3b8;margin-top:0.25rem;">novos cadastros</p>
           </div>
 
+          <div class="stat-card" style="background:#fff;border-radius:16px;padding:1.25rem 1.5rem;border:1px solid #e2e8f0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+              <span style="font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Cursos Ativos</span>
+              <div style="width:36px;height:36px;border-radius:10px;background:#fffbeb;display:flex;align-items:center;justify-content:center;">
+                <svg style="width:18px;height:18px;color:#d97706" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              </div>
+            </div>
+            <p id="stat-cursos" style="font-family:Montserrat,sans-serif;font-size:2rem;font-weight:800;color:#d97706;line-height:1;">—</p>
+            <p style="font-size:0.75rem;color:#94a3b8;margin-top:0.25rem;">cursos cadastrados</p>
+          </div>
+
         </div>
 
         <!-- Cadastros recentes -->
@@ -192,7 +186,7 @@
               <thead>
                 <tr style="background:#f8fafc;">
                   <th style="padding:0.75rem 1.5rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Aluno</th>
-                  <th style="padding:0.75rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Telefone</th>
+                  <th style="padding:0.75rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">E-mail</th>
                   <th style="padding:0.75rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Cadastro</th>
                 </tr>
               </thead>
@@ -202,13 +196,10 @@
             </table>
           </div>
         </div>
-
       </section>
 
       <!-- ===== ALUNOS ===== -->
       <section id="section-alunos" class="panel-section">
-
-        <!-- Toolbar -->
         <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
           <div style="flex:1;min-width:200px;position:relative;">
             <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#94a3b8;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
@@ -216,19 +207,23 @@
               style="width:100%;padding:0.625rem 0.875rem 0.625rem 2.25rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#334155;outline:none;background:#fff;box-sizing:border-box;"
               onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'">
           </div>
+          <button onclick="exportCSV()" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;font-weight:500;color:#475569;cursor:pointer;">
+            <svg style="width:15px;height:15px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Exportar CSV
+          </button>
           <button onclick="loadAlunos()" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;font-weight:500;color:#475569;cursor:pointer;">
             <svg style="width:15px;height:15px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
             Atualizar
           </button>
         </div>
 
-        <!-- Tabela -->
         <div style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;overflow:hidden;">
           <div style="overflow-x:auto;">
             <table style="width:100%;border-collapse:collapse;">
               <thead>
                 <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
                   <th style="padding:0.875rem 1.5rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Aluno</th>
+                  <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">E-mail</th>
                   <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">CPF</th>
                   <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Telefone</th>
                   <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Empresa</th>
@@ -237,37 +232,68 @@
                 </tr>
               </thead>
               <tbody id="alunos-tbody">
-                <tr><td colspan="6" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Carregando...</td></tr>
+                <tr><td colspan="7" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Carregando...</td></tr>
               </tbody>
             </table>
           </div>
-          <div id="alunos-footer" style="padding:0.875rem 1.5rem;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;">
+          <div style="padding:0.875rem 1.5rem;border-top:1px solid #f1f5f9;">
             <p id="alunos-count" style="font-size:0.8125rem;color:#94a3b8;"></p>
           </div>
         </div>
-
       </section>
 
-    </div><!-- /content area -->
-  </main>
-</div><!-- /app -->
+      <!-- ===== CURSOS ===== -->
+      <section id="section-cursos" class="panel-section">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;position:relative;">
+            <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#94a3b8;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+            <input id="curso-search" type="text" placeholder="Buscar curso..." oninput="filterCursos()"
+              style="width:100%;padding:0.625rem 0.875rem 0.625rem 2.25rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#334155;outline:none;background:#fff;box-sizing:border-box;"
+              onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'">
+          </div>
+          <button onclick="openCursoModal(null)" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1.125rem;background:#1e3a5f;border:none;border-radius:10px;font-size:0.875rem;font-weight:600;color:#fff;cursor:pointer;">
+            <svg style="width:15px;height:15px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Novo Curso
+          </button>
+        </div>
 
-<!-- ===== MODAL: DETALHES/EDITAR ALUNO ===== -->
+        <div style="background:#fff;border-radius:16px;border:1px solid #e2e8f0;overflow:hidden;">
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                  <th style="padding:0.875rem 1.5rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Título</th>
+                  <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Carga Horária</th>
+                  <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Valor</th>
+                  <th style="padding:0.875rem 1rem;text-align:left;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Status</th>
+                  <th style="padding:0.875rem 1rem;text-align:center;font-size:0.75rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="cursos-tbody">
+                <tr><td colspan="5" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Carregando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:0.875rem 1.5rem;border-top:1px solid #f1f5f9;">
+            <p id="cursos-count" style="font-size:0.8125rem;color:#94a3b8;"></p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===== MODAL: EDITAR ALUNO ===== -->
 <div id="modal-aluno" class="modal-overlay" onclick="if(event.target===this)closeAlunoModal()">
   <div style="background:#fff;border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.2);">
-
-    <!-- Header do modal -->
     <div style="padding:1.5rem 1.5rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f1f5f9;">
-      <h2 id="modal-title" style="font-family:Montserrat,sans-serif;font-weight:700;font-size:1.0625rem;color:#1e3a5f;">Detalhes do Aluno</h2>
+      <h2 style="font-family:Montserrat,sans-serif;font-weight:700;font-size:1.0625rem;color:#1e3a5f;">Editar Aluno</h2>
       <button onclick="closeAlunoModal()" style="width:32px;height:32px;border-radius:8px;border:none;background:#f1f5f9;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;">
         <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-
-    <!-- Corpo do modal -->
     <div style="padding:1.5rem;">
-
-      <!-- Avatar + nome -->
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
         <div id="modal-avatar" style="width:56px;height:56px;border-radius:50%;background:#1e3a5f;display:flex;align-items:center;justify-content:center;font-size:1.125rem;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;"></div>
         <div>
@@ -275,58 +301,68 @@
           <p id="modal-email-display" style="font-size:0.8125rem;color:#94a3b8;"></p>
         </div>
       </div>
-
-      <!-- Formulário de edição -->
       <form id="modal-form" onsubmit="saveAluno(event)">
         <input type="hidden" id="edit-id">
-
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem;">
-          <div style="grid-column:1/-1;">
-            <label style="display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem;">Nome completo</label>
-            <input id="edit-nome" type="text" required
-              style="width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#1e293b;outline:none;box-sizing:border-box;"
-              onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'">
-          </div>
-          <div>
-            <label style="display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem;">CPF</label>
-            <input id="edit-cpf" type="text" readonly
-              style="width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#94a3b8;background:#f8fafc;box-sizing:border-box;outline:none;">
-          </div>
-          <div>
-            <label style="display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem;">Telefone</label>
-            <input id="edit-telefone" type="text"
-              style="width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#1e293b;outline:none;box-sizing:border-box;"
-              onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'">
-          </div>
-          <div>
-            <label style="display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem;">Empresa</label>
-            <input id="edit-empresa" type="text"
-              style="width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#1e293b;outline:none;box-sizing:border-box;"
-              onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'">
-          </div>
-          <div>
-            <label style="display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem;">Cargo</label>
-            <input id="edit-cargo" type="text"
-              style="width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#1e293b;outline:none;box-sizing:border-box;"
-              onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'">
-          </div>
-          <div style="grid-column:1/-1;">
-            <label style="display:block;font-size:0.75rem;font-weight:600;color:#64748b;margin-bottom:0.375rem;">Bio</label>
-            <textarea id="edit-bio" rows="2"
-              style="width:100%;padding:0.625rem 0.875rem;border:1px solid #e2e8f0;border-radius:10px;font-size:0.875rem;color:#1e293b;outline:none;resize:vertical;box-sizing:border-box;font-family:Inter,sans-serif;"
-              onfocus="this.style.borderColor='#1e3a5f'" onblur="this.style.borderColor='#e2e8f0'"></textarea>
-          </div>
+          <div style="grid-column:1/-1;"><label class="lbl">Nome completo</label><input id="edit-nome" type="text" required class="inp"></div>
+          <div><label class="lbl">CPF</label><input id="edit-cpf" type="text" readonly class="inp"></div>
+          <div><label class="lbl">Telefone</label><input id="edit-telefone" type="text" class="inp"></div>
+          <div><label class="lbl">Empresa</label><input id="edit-empresa" type="text" class="inp"></div>
+          <div><label class="lbl">Cargo</label><input id="edit-cargo" type="text" class="inp"></div>
+          <div style="grid-column:1/-1;"><label class="lbl">Bio</label><textarea id="edit-bio" rows="2" class="inp" style="resize:vertical;font-family:Inter,sans-serif;"></textarea></div>
         </div>
-
-        <!-- Ações do modal -->
         <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-top:0.5rem;">
-          <button type="button" id="btn-delete" onclick="confirmDelete()" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1rem;border:1px solid #fecaca;border-radius:10px;background:#fff;color:#dc2626;font-size:0.875rem;font-weight:600;cursor:pointer;">
+          <button type="button" onclick="confirmDelete()" style="display:flex;align-items:center;gap:0.5rem;padding:0.625rem 1rem;border:1px solid #fecaca;border-radius:10px;background:#fff;color:#dc2626;font-size:0.875rem;font-weight:600;cursor:pointer;">
             <svg style="width:15px;height:15px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             Excluir
           </button>
           <div style="display:flex;gap:0.5rem;">
             <button type="button" onclick="closeAlunoModal()" style="padding:0.625rem 1rem;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#64748b;font-size:0.875rem;font-weight:600;cursor:pointer;">Cancelar</button>
             <button type="submit" id="btn-save" style="padding:0.625rem 1.25rem;border:none;border-radius:10px;background:#1e3a5f;color:#fff;font-size:0.875rem;font-weight:600;cursor:pointer;">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: CURSO ===== -->
+<div id="modal-curso" class="modal-overlay" onclick="if(event.target===this)closeCursoModal()">
+  <div style="background:#fff;border-radius:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.2);">
+    <div style="padding:1.5rem 1.5rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f1f5f9;">
+      <h2 id="curso-modal-title" style="font-family:Montserrat,sans-serif;font-weight:700;font-size:1.0625rem;color:#1e3a5f;">Novo Curso</h2>
+      <button onclick="closeCursoModal()" style="width:32px;height:32px;border-radius:8px;border:none;background:#f1f5f9;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;">
+        <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div style="padding:1.5rem;">
+      <form id="curso-form" onsubmit="saveCurso(event)">
+        <input type="hidden" id="curso-id">
+        <div style="display:flex;flex-direction:column;gap:0.875rem;">
+          <div><label class="lbl">Título *</label><input id="curso-titulo" type="text" required class="inp" placeholder="Ex: NR-11 Operador de Empilhadeira"></div>
+          <div><label class="lbl">Descrição</label><textarea id="curso-descricao" rows="3" class="inp" style="resize:vertical;font-family:Inter,sans-serif;" placeholder="Descrição do curso..."></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;">
+            <div><label class="lbl">Carga Horária (h)</label><input id="curso-carga" type="number" min="1" class="inp" placeholder="Ex: 8"></div>
+            <div><label class="lbl">Valor (R$)</label><input id="curso-valor" type="number" min="0" step="0.01" class="inp" placeholder="Ex: 150.00"></div>
+          </div>
+          <div>
+            <label class="lbl">URL do Vídeo (Vimeo)</label>
+            <input id="curso-video" type="url" class="inp" placeholder="https://player.vimeo.com/video/ID_DO_VIDEO">
+            <p style="font-size:0.7rem;color:#94a3b8;margin-top:0.25rem;">Cole a URL do player do Vimeo. Ex: https://player.vimeo.com/video/123456789</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.625rem;">
+            <input type="checkbox" id="curso-ativo" style="width:16px;height:16px;accent-color:#1e3a5f;cursor:pointer;" checked>
+            <label for="curso-ativo" style="font-size:0.875rem;font-weight:500;color:#334155;cursor:pointer;">Curso ativo (visível para alunos)</label>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-top:1.25rem;">
+          <button type="button" id="btn-curso-delete" onclick="confirmDeleteCurso()" style="display:none;align-items:center;gap:0.5rem;padding:0.625rem 1rem;border:1px solid #fecaca;border-radius:10px;background:#fff;color:#dc2626;font-size:0.875rem;font-weight:600;cursor:pointer;">
+            <svg style="width:15px;height:15px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            Excluir
+          </button>
+          <div style="display:flex;gap:0.5rem;margin-left:auto;">
+            <button type="button" onclick="closeCursoModal()" style="padding:0.625rem 1rem;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#64748b;font-size:0.875rem;font-weight:600;cursor:pointer;">Cancelar</button>
+            <button type="submit" id="btn-curso-save" style="padding:0.625rem 1.25rem;border:none;border-radius:10px;background:#1e3a5f;color:#fff;font-size:0.875rem;font-weight:600;cursor:pointer;">Salvar</button>
           </div>
         </div>
       </form>
@@ -341,41 +377,37 @@
       <div style="width:52px;height:52px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
         <svg style="width:24px;height:24px;color:#dc2626" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
       </div>
-      <h3 style="font-family:Montserrat,sans-serif;font-weight:700;font-size:1rem;color:#1e293b;margin-bottom:0.5rem;">Excluir aluno?</h3>
+      <h3 id="confirm-title" style="font-family:Montserrat,sans-serif;font-weight:700;font-size:1rem;color:#1e293b;margin-bottom:0.5rem;">Confirmar exclusão</h3>
       <p id="confirm-text" style="font-size:0.875rem;color:#64748b;">Esta ação não pode ser desfeita.</p>
     </div>
     <div style="display:flex;gap:0.75rem;">
       <button onclick="closeConfirmModal()" style="flex:1;padding:0.625rem;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#64748b;font-size:0.875rem;font-weight:600;cursor:pointer;">Cancelar</button>
-      <button onclick="executeDelete()" style="flex:1;padding:0.625rem;border:none;border-radius:10px;background:#dc2626;color:#fff;font-size:0.875rem;font-weight:600;cursor:pointer;">Sim, excluir</button>
+      <button id="confirm-btn" style="flex:1;padding:0.625rem;border:none;border-radius:10px;background:#dc2626;color:#fff;font-size:0.875rem;font-weight:600;cursor:pointer;">Sim, excluir</button>
     </div>
   </div>
 </div>
 
-<!-- ===== SUPABASE SDK ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 (function () {
   'use strict';
 
   var SUPABASE_URL = 'https://lksrbemlqbfmstzhjohx.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxrc3JiZW1scWJmbXN0emhqb2h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNDcwMjIsImV4cCI6MjA5MDYyMzAyMn0.h7dm9AKXNxVmhUno3T_3ZEWxlxnb25mIyaNv6jdeF6I';
-
   var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // Lista completa em memória para filtro
-  var allAlunos = [];
-  var pendingDeleteId = null;
+  var allAlunos = window._adminAlunos = [];
+  var allCursos = window._adminCursos = [];
+  var pendingDeleteFn = null;
 
   // ===== TOAST =====
   function showToast(msg, type) {
     var old = document.getElementById('admin-toast');
     if (old) old.remove();
-    var colors = { success: '#16a34a', error: '#dc2626', info: '#1e3a5f' };
-    var bg = colors[type] || colors.info;
+    var colors = { success:'#16a34a', error:'#dc2626', info:'#1e3a5f' };
     var t = document.createElement('div');
     t.id = 'admin-toast';
-    t.style.cssText = 'position:fixed;top:24px;right:24px;z-index:9999;background:' + bg + ';color:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.18);font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;max-width:320px;transform:translateX(120%);transition:transform 0.3s cubic-bezier(.4,0,.2,1);pointer-events:none;';
+    t.style.cssText = 'position:fixed;top:24px;right:24px;z-index:9999;background:' + (colors[type]||colors.info) + ';color:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.18);font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;max-width:320px;transform:translateX(120%);transition:transform 0.3s cubic-bezier(.4,0,.2,1);pointer-events:none;';
     t.innerHTML = '<span>' + msg + '</span>';
     document.body.appendChild(t);
     setTimeout(function () { t.style.transform = 'translateX(0)'; }, 10);
@@ -385,23 +417,37 @@
   // ===== UTILS =====
   function getInitials(nome) {
     var parts = (nome || '').trim().split(' ');
-    if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-    return (parts[0] || 'U').substring(0, 2).toUpperCase();
+    if (parts.length >= 2) return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+    return (parts[0] || 'U').substring(0,2).toUpperCase();
   }
 
   function formatCPF(cpf) {
-    var c = (cpf || '').replace(/\D/g, '');
+    var c = (cpf || '').replace(/\D/g,'');
     if (c.length === 11) return c.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     return cpf || '—';
   }
 
   function formatDate(iso) {
     if (!iso) return '—';
-    var d = new Date(iso);
-    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    return new Date(iso).toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' });
+  }
+
+  function formatValor(v) {
+    if (v === null || v === undefined) return '—';
+    return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits:2 });
+  }
+
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   // ===== NAVEGAÇÃO =====
+  var sectionTitles = {
+    dashboard: ['Dashboard', 'Visão geral do sistema'],
+    alunos:    ['Alunos', 'Gerenciar todos os alunos cadastrados'],
+    cursos:    ['Cursos', 'Gerenciar cursos disponíveis'],
+  };
+
   window.showSection = function (name) {
     document.querySelectorAll('.panel-section').forEach(function (s) { s.classList.remove('active'); });
     document.querySelectorAll('.sidebar-link').forEach(function (l) { l.classList.remove('active'); });
@@ -409,19 +455,15 @@
     var sec = document.getElementById('section-' + name);
     if (sec) sec.classList.add('active');
 
-    var titles = { dashboard: ['Dashboard', 'Visão geral do sistema'], alunos: ['Alunos', 'Gerenciar todos os alunos cadastrados'] };
-    var t = titles[name] || ['', ''];
+    var navBtn = document.getElementById('nav-' + name);
+    if (navBtn) navBtn.classList.add('active');
+
+    var t = sectionTitles[name] || ['', ''];
     document.getElementById('page-title').textContent = t[0];
     document.getElementById('page-subtitle').textContent = t[1];
 
-    // Ativar link correto na sidebar
-    document.querySelectorAll('.sidebar-link').forEach(function (l) {
-      if (l.textContent.trim().toLowerCase().startsWith(name === 'dashboard' ? 'dash' : 'aluno')) {
-        l.classList.add('active');
-      }
-    });
-
     if (name === 'alunos') loadAlunos();
+    if (name === 'cursos') loadCursos();
   };
 
   // ===== LOGOUT =====
@@ -436,33 +478,29 @@
     var d7  = new Date(now); d7.setDate(d7.getDate() - 7);
     var d30 = new Date(now); d30.setDate(d30.getDate() - 30);
 
-    var [resTotal, res7, res30, resRecent] = await Promise.all([
-      sb.from('profiles').select('id', { count: 'exact', head: true }),
-      sb.from('profiles').select('id', { count: 'exact', head: true }).gte('criado_em', d7.toISOString()),
-      sb.from('profiles').select('id', { count: 'exact', head: true }).gte('criado_em', d30.toISOString()),
-      sb.from('profiles').select('nome,telefone,criado_em').order('criado_em', { ascending: false }).limit(5),
+    var [resTotal, res7, res30, resCursos, resRecent] = await Promise.all([
+      sb.from('profiles').select('id', { count:'exact', head:true }),
+      sb.from('profiles').select('id', { count:'exact', head:true }).gte('criado_em', d7.toISOString()),
+      sb.from('profiles').select('id', { count:'exact', head:true }).gte('criado_em', d30.toISOString()),
+      sb.from('cursos').select('id', { count:'exact', head:true }).eq('ativo', true),
+      sb.rpc('get_profiles_with_email').order('criado_em', { ascending:false }).limit(5),
     ]);
 
-    document.getElementById('stat-total').textContent = resTotal.count !== null ? resTotal.count : '—';
-    document.getElementById('stat-7d').textContent   = res7.count  !== null ? res7.count  : '—';
-    document.getElementById('stat-30d').textContent  = res30.count !== null ? res30.count : '—';
+    document.getElementById('stat-total').textContent  = resTotal.count  !== null ? resTotal.count  : '—';
+    document.getElementById('stat-7d').textContent     = res7.count      !== null ? res7.count      : '—';
+    document.getElementById('stat-30d').textContent    = res30.count     !== null ? res30.count     : '—';
+    document.getElementById('stat-cursos').textContent = resCursos.count !== null ? resCursos.count : '—';
 
     var tbody = document.getElementById('recent-tbody');
-    var rows = (resRecent.data || []);
+    var rows = resRecent.data || [];
     if (rows.length === 0) {
       tbody.innerHTML = '<tr><td colspan="3" style="padding:2rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Nenhum cadastro encontrado.</td></tr>';
       return;
     }
     tbody.innerHTML = rows.map(function (r) {
-      var initials = getInitials(r.nome);
       return '<tr>' +
-        '<td style="padding:0.875rem 1.5rem;">' +
-          '<div style="display:flex;align-items:center;gap:0.75rem;">' +
-            '<div style="width:32px;height:32px;border-radius:50%;background:#1e3a5f;display:flex;align-items:center;justify-content:center;font-size:0.6875rem;font-weight:700;color:#fff;flex-shrink:0;">' + initials + '</div>' +
-            '<span style="font-size:0.875rem;font-weight:500;color:#1e293b;">' + escHtml(r.nome) + '</span>' +
-          '</div>' +
-        '</td>' +
-        '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + escHtml(r.telefone || '—') + '</td>' +
+        '<td style="padding:0.875rem 1.5rem;"><div style="display:flex;align-items:center;gap:0.75rem;"><div style="width:32px;height:32px;border-radius:50%;background:#1e3a5f;display:flex;align-items:center;justify-content:center;font-size:0.6875rem;font-weight:700;color:#fff;flex-shrink:0;">' + getInitials(r.nome) + '</div><span style="font-size:0.875rem;font-weight:500;color:#1e293b;">' + escHtml(r.nome) + '</span></div></td>' +
+        '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + escHtml(r.email || '—') + '</td>' +
         '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + formatDate(r.criado_em) + '</td>' +
       '</tr>';
     }).join('');
@@ -471,49 +509,42 @@
   // ===== ALUNOS =====
   window.loadAlunos = async function () {
     var tbody = document.getElementById('alunos-tbody');
-    tbody.innerHTML = '<tr><td colspan="6" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Carregando...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Carregando...</td></tr>';
 
-    var { data, error } = await sb.from('profiles').select('id,nome,cpf,telefone,empresa,cargo,bio,foto_url,criado_em').order('criado_em', { ascending: false });
+    var { data, error } = await sb.rpc('get_profiles_with_email').order('criado_em', { ascending:false });
 
     if (error) {
-      tbody.innerHTML = '<tr><td colspan="6" style="padding:3rem;text-align:center;color:#dc2626;font-size:0.875rem;">Erro ao carregar dados.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="padding:3rem;text-align:center;color:#dc2626;font-size:0.875rem;">Erro ao carregar dados.</td></tr>';
       return;
     }
 
-    allAlunos = data || [];
+    allAlunos = window._adminAlunos = data || [];
     renderAlunos(allAlunos);
   };
 
   function renderAlunos(list) {
     var tbody = document.getElementById('alunos-tbody');
-    var count = document.getElementById('alunos-count');
-    count.textContent = list.length + ' aluno(s) encontrado(s)';
+    document.getElementById('alunos-count').textContent = list.length + ' aluno(s) encontrado(s)';
 
     if (list.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Nenhum aluno encontrado.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Nenhum aluno encontrado.</td></tr>';
       return;
     }
 
-    tbody.innerHTML = list.map(function (a) {
-      var initials = getInitials(a.nome);
+    tbody.innerHTML = list.map(function (a, i) {
       var avatarHtml = a.foto_url
         ? '<img src="' + escHtml(a.foto_url) + '" style="width:100%;height:100%;object-fit:cover;">'
-        : '<span style="font-size:0.6875rem;font-weight:700;color:#fff;">' + initials + '</span>';
+        : '<span style="font-size:0.6875rem;font-weight:700;color:#fff;">' + getInitials(a.nome) + '</span>';
+      var idx = allAlunos.indexOf(a); // allAlunos === window._adminAlunos
 
-      return '<tr class="aluno-row" onclick="openAlunoModal(' + JSON.stringify(a).replace(/</g,'\\u003c').replace(/>/g,'\\u003e') + ')">' +
-        '<td style="padding:0.875rem 1.5rem;">' +
-          '<div style="display:flex;align-items:center;gap:0.75rem;">' +
-            '<div style="width:34px;height:34px;border-radius:50%;background:#1e3a5f;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">' + avatarHtml + '</div>' +
-            '<div><p style="font-size:0.875rem;font-weight:500;color:#1e293b;">' + escHtml(a.nome) + '</p></div>' +
-          '</div>' +
-        '</td>' +
+      return '<tr class="data-row" onclick="openAlunoModal(_adminAlunos[' + idx + '])">' +
+        '<td style="padding:0.875rem 1.5rem;"><div style="display:flex;align-items:center;gap:0.75rem;"><div style="width:34px;height:34px;border-radius:50%;background:#1e3a5f;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">' + avatarHtml + '</div><p style="font-size:0.875rem;font-weight:500;color:#1e293b;">' + escHtml(a.nome) + '</p></div></td>' +
+        '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + escHtml(a.email || '—') + '</td>' +
         '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + formatCPF(a.cpf) + '</td>' +
         '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + escHtml(a.telefone || '—') + '</td>' +
         '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + escHtml(a.empresa || '—') + '</td>' +
         '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + formatDate(a.criado_em) + '</td>' +
-        '<td style="padding:0.875rem 1rem;text-align:center;">' +
-          '<button onclick="event.stopPropagation();openAlunoModal(' + JSON.stringify(a).replace(/</g,'\\u003c').replace(/>/g,'\\u003e') + ')" style="padding:0.375rem 0.75rem;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#475569;font-size:0.75rem;font-weight:600;cursor:pointer;">Editar</button>' +
-        '</td>' +
+        '<td style="padding:0.875rem 1rem;text-align:center;"><button onclick="event.stopPropagation();openAlunoModal(_adminAlunos[' + idx + '])" style="padding:0.375rem 0.75rem;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#475569;font-size:0.75rem;font-weight:600;cursor:pointer;">Editar</button></td>' +
       '</tr>';
     }).join('');
   }
@@ -521,34 +552,61 @@
   window.filterAlunos = function () {
     var q = document.getElementById('search-input').value.toLowerCase();
     if (!q) { renderAlunos(allAlunos); return; }
-    var filtered = allAlunos.filter(function (a) {
-      return (a.nome || '').toLowerCase().includes(q) ||
-             (a.cpf  || '').replace(/\D/g,'').includes(q.replace(/\D/g,'')) ||
-             (a.telefone || '').includes(q);
+    renderAlunos(allAlunos.filter(function (a) {
+      return (a.nome  || '').toLowerCase().includes(q) ||
+             (a.email || '').toLowerCase().includes(q) ||
+             (a.cpf   || '').replace(/\D/g,'').includes(q.replace(/\D/g,''));
+    }));
+  };
+
+  // ===== EXPORTAR CSV =====
+  window.exportCSV = function () {
+    var list = allAlunos;
+    if (list.length === 0) { showToast('Nenhum dado para exportar.', 'info'); return; }
+
+    var header = ['Nome','E-mail','CPF','Telefone','Empresa','Cargo','Cadastro'];
+    var rows = list.map(function (a) {
+      return [
+        '"' + (a.nome     || '').replace(/"/g,'""') + '"',
+        '"' + (a.email    || '').replace(/"/g,'""') + '"',
+        '"' + formatCPF(a.cpf) + '"',
+        '"' + (a.telefone || '').replace(/"/g,'""') + '"',
+        '"' + (a.empresa  || '').replace(/"/g,'""') + '"',
+        '"' + (a.cargo    || '').replace(/"/g,'""') + '"',
+        '"' + formatDate(a.criado_em) + '"',
+      ].join(',');
     });
-    renderAlunos(filtered);
+
+    var csv = '\uFEFF' + header.join(',') + '\n' + rows.join('\n');
+    var blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+    var url  = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'alunos_' + new Date().toISOString().slice(0,10) + '.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV exportado com sucesso!', 'success');
   };
 
   // ===== MODAL ALUNO =====
   window.openAlunoModal = function (aluno) {
-    document.getElementById('edit-id').value      = aluno.id;
-    document.getElementById('edit-nome').value    = aluno.nome || '';
-    document.getElementById('edit-cpf').value     = formatCPF(aluno.cpf);
-    document.getElementById('edit-telefone').value= aluno.telefone || '';
-    document.getElementById('edit-empresa').value = aluno.empresa || '';
-    document.getElementById('edit-cargo').value   = aluno.cargo || '';
-    document.getElementById('edit-bio').value     = aluno.bio || '';
+    document.getElementById('edit-id').value       = aluno.id;
+    document.getElementById('edit-nome').value     = aluno.nome     || '';
+    document.getElementById('edit-cpf').value      = formatCPF(aluno.cpf);
+    document.getElementById('edit-telefone').value = aluno.telefone || '';
+    document.getElementById('edit-empresa').value  = aluno.empresa  || '';
+    document.getElementById('edit-cargo').value    = aluno.cargo    || '';
+    document.getElementById('edit-bio').value      = aluno.bio      || '';
 
-    var initials = getInitials(aluno.nome);
     var av = document.getElementById('modal-avatar');
     if (aluno.foto_url) {
       av.innerHTML = '<img src="' + escHtml(aluno.foto_url) + '" style="width:100%;height:100%;object-fit:cover;">';
     } else {
-      av.textContent = initials;
+      av.textContent = getInitials(aluno.nome);
       av.style.background = '#1e3a5f';
     }
     document.getElementById('modal-nome-display').textContent  = aluno.nome;
-    document.getElementById('modal-email-display').textContent = ''; // e-mail não está em profiles
+    document.getElementById('modal-email-display').textContent = aluno.email || '';
 
     document.getElementById('modal-aluno').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -569,53 +627,170 @@
     var bio   = document.getElementById('edit-bio').value.trim();
 
     var btn = document.getElementById('btn-save');
-    btn.disabled = true;
-    btn.textContent = 'Salvando...';
+    btn.disabled = true; btn.textContent = 'Salvando...';
 
-    var { error } = await sb.from('profiles').update({ nome, telefone: tel, empresa: emp, cargo, bio }).eq('id', id);
+    var { error } = await sb.from('profiles').update({ nome, telefone:tel, empresa:emp, cargo, bio }).eq('id', id);
 
-    btn.disabled = false;
-    btn.textContent = 'Salvar';
+    btn.disabled = false; btn.textContent = 'Salvar';
 
     if (error) { showToast('Erro ao salvar: ' + error.message, 'error'); return; }
-
     showToast('Dados salvos com sucesso!', 'success');
     closeAlunoModal();
     loadAlunos();
     loadDashboard();
   };
 
-  // ===== EXCLUIR =====
-  window.confirmDelete = function () {
-    var nome = document.getElementById('edit-nome').value;
-    pendingDeleteId = document.getElementById('edit-id').value;
-    document.getElementById('confirm-text').textContent = 'Deseja excluir o aluno "' + escHtml(nome) + '"? Esta ação não pode ser desfeita.';
-    document.getElementById('modal-confirm').classList.add('open');
+  // ===== CURSOS =====
+  window.loadCursos = async function () {
+    var tbody = document.getElementById('cursos-tbody');
+    tbody.innerHTML = '<tr><td colspan="5" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Carregando...</td></tr>';
+
+    var { data, error } = await sb.from('cursos').select('*').order('criado_em', { ascending:false });
+
+    if (error) {
+      tbody.innerHTML = '<tr><td colspan="5" style="padding:3rem;text-align:center;color:#dc2626;font-size:0.875rem;">Erro ao carregar cursos.</td></tr>';
+      return;
+    }
+
+    allCursos = window._adminCursos = data || [];
+    renderCursos(allCursos);
   };
 
-  window.closeConfirmModal = function () {
-    document.getElementById('modal-confirm').classList.remove('open');
-    pendingDeleteId = null;
+  function renderCursos(list) {
+    var tbody = document.getElementById('cursos-tbody');
+    document.getElementById('cursos-count').textContent = list.length + ' curso(s) encontrado(s)';
+
+    if (list.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="padding:3rem;text-align:center;color:#94a3b8;font-size:0.875rem;">Nenhum curso cadastrado. Clique em "Novo Curso" para começar.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = list.map(function (c, i) {
+      var statusBg  = c.ativo ? '#f0fdf4' : '#f8fafc';
+      var statusCol = c.ativo ? '#16a34a' : '#94a3b8';
+      var statusTxt = c.ativo ? 'Ativo'   : 'Inativo';
+
+      return '<tr class="data-row" onclick="openCursoModal(_adminCursos[' + allCursos.indexOf(c) + '])">' +
+        '<td style="padding:0.875rem 1.5rem;"><p style="font-size:0.875rem;font-weight:600;color:#1e293b;">' + escHtml(c.titulo) + '</p>' + (c.descricao ? '<p style="font-size:0.75rem;color:#94a3b8;margin-top:2px;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escHtml(c.descricao) + '</p>' : '') + '</td>' +
+        '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + (c.carga_horaria ? c.carga_horaria + 'h' : '—') + '</td>' +
+        '<td style="padding:0.875rem 1rem;font-size:0.875rem;color:#64748b;">' + formatValor(c.valor) + '</td>' +
+        '<td style="padding:0.875rem 1rem;"><span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font-size:0.75rem;font-weight:600;background:' + statusBg + ';color:' + statusCol + ';">' + statusTxt + '</span></td>' +
+        '<td style="padding:0.875rem 1rem;text-align:center;"><button onclick="event.stopPropagation();openCursoModal(_adminCursos[' + allCursos.indexOf(c) + '])" style="padding:0.375rem 0.75rem;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#475569;font-size:0.75rem;font-weight:600;cursor:pointer;">Editar</button></td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  window.filterCursos = function () {
+    var q = document.getElementById('curso-search').value.toLowerCase();
+    if (!q) { renderCursos(allCursos); return; }
+    renderCursos(allCursos.filter(function (c) {
+      return (c.titulo || '').toLowerCase().includes(q) || (c.descricao || '').toLowerCase().includes(q);
+    }));
   };
 
-  window.executeDelete = async function () {
-    if (!pendingDeleteId) return;
-    var id = pendingDeleteId;
-    closeConfirmModal();
-    closeAlunoModal();
+  window.openCursoModal = function (curso) {
+    var isNew = !curso;
+    document.getElementById('curso-modal-title').textContent = isNew ? 'Novo Curso' : 'Editar Curso';
+    document.getElementById('curso-id').value         = curso ? curso.id        : '';
+    document.getElementById('curso-titulo').value     = curso ? curso.titulo     || '' : '';
+    document.getElementById('curso-descricao').value  = curso ? curso.descricao  || '' : '';
+    document.getElementById('curso-carga').value      = curso ? curso.carga_horaria || '' : '';
+    document.getElementById('curso-valor').value      = curso ? curso.valor      || '' : '';
+    document.getElementById('curso-video').value      = curso ? curso.video_url  || '' : '';
+    document.getElementById('curso-ativo').checked    = curso ? curso.ativo      : true;
 
-    var { error } = await sb.from('profiles').delete().eq('id', id);
-    if (error) { showToast('Erro ao excluir: ' + error.message, 'error'); return; }
+    var btnDel = document.getElementById('btn-curso-delete');
+    btnDel.style.display = isNew ? 'none' : 'flex';
 
-    showToast('Aluno excluído.', 'info');
-    loadAlunos();
+    document.getElementById('modal-curso').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeCursoModal = function () {
+    document.getElementById('modal-curso').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.saveCurso = async function (e) {
+    e.preventDefault();
+    var id        = document.getElementById('curso-id').value;
+    var titulo    = document.getElementById('curso-titulo').value.trim();
+    var descricao = document.getElementById('curso-descricao').value.trim();
+    var carga     = parseInt(document.getElementById('curso-carga').value) || null;
+    var valor     = parseFloat(document.getElementById('curso-valor').value) || null;
+    var ativo     = document.getElementById('curso-ativo').checked;
+
+    var btn = document.getElementById('btn-curso-save');
+    btn.disabled = true; btn.textContent = 'Salvando...';
+
+    var video = document.getElementById('curso-video').value.trim() || null;
+    var payload = { titulo, descricao: descricao || null, carga_horaria: carga, valor, ativo, video_url: video };
+    var result;
+
+    if (id) {
+      result = await sb.from('cursos').update(payload).eq('id', id);
+    } else {
+      result = await sb.from('cursos').insert(payload);
+    }
+
+    btn.disabled = false; btn.textContent = 'Salvar';
+
+    if (result.error) { showToast('Erro: ' + result.error.message, 'error'); return; }
+
+    showToast(id ? 'Curso atualizado!' : 'Curso criado!', 'success');
+    closeCursoModal();
+    loadCursos();
     loadDashboard();
   };
 
-  // ===== ESCAPE HTML =====
-  function escHtml(str) {
-    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  // ===== EXCLUSÃO GENÉRICA =====
+  function openConfirm(title, text, onConfirm) {
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-text').textContent  = text;
+    document.getElementById('confirm-btn').onclick = function () {
+      closeConfirmModal();
+      onConfirm();
+    };
+    document.getElementById('modal-confirm').classList.add('open');
   }
+
+  window.closeConfirmModal = function () {
+    document.getElementById('modal-confirm').classList.remove('open');
+  };
+
+  window.confirmDelete = function () {
+    var nome = document.getElementById('edit-nome').value;
+    var id   = document.getElementById('edit-id').value;
+    openConfirm(
+      'Excluir aluno?',
+      'Deseja excluir "' + nome + '"? Esta ação não pode ser desfeita.',
+      async function () {
+        var { error } = await sb.from('profiles').delete().eq('id', id);
+        if (error) { showToast('Erro ao excluir: ' + error.message, 'error'); return; }
+        showToast('Aluno excluído.', 'info');
+        closeAlunoModal();
+        loadAlunos();
+        loadDashboard();
+      }
+    );
+  };
+
+  window.confirmDeleteCurso = function () {
+    var id     = document.getElementById('curso-id').value;
+    var titulo = document.getElementById('curso-titulo').value;
+    openConfirm(
+      'Excluir curso?',
+      'Deseja excluir "' + titulo + '"? Esta ação não pode ser desfeita.',
+      async function () {
+        var { error } = await sb.from('cursos').delete().eq('id', id);
+        if (error) { showToast('Erro ao excluir: ' + error.message, 'error'); return; }
+        showToast('Curso excluído.', 'info');
+        closeCursoModal();
+        loadCursos();
+        loadDashboard();
+      }
+    );
+  };
 
   // ===== INIT =====
   async function init() {
@@ -624,27 +799,22 @@
 
     if (!session) {
       document.getElementById('loading-screen').style.display = 'none';
-      var denied = document.getElementById('access-denied');
-      denied.style.display = 'flex';
+      document.getElementById('access-denied').style.display = 'flex';
       return;
     }
 
-    // Verificar role admin na tabela profiles
     var { data: profile } = await sb.from('profiles').select('nome,role').eq('id', session.user.id).single();
 
     if (!profile || profile.role !== 'admin') {
       document.getElementById('loading-screen').style.display = 'none';
-      var denied = document.getElementById('access-denied');
-      denied.style.display = 'flex';
+      document.getElementById('access-denied').style.display = 'flex';
       return;
     }
 
-    // Preencher info do admin na sidebar
-    document.getElementById('admin-name').textContent  = profile.nome || 'Admin';
-    document.getElementById('admin-email').textContent = session.user.email || '';
+    document.getElementById('admin-name').textContent   = profile.nome || 'Admin';
+    document.getElementById('admin-email').textContent  = session.user.email || '';
     document.getElementById('admin-avatar').textContent = getInitials(profile.nome || 'Admin');
 
-    // Esconder loading, mostrar app
     document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
     document.getElementById('app').style.flexDirection = 'column';
@@ -660,6 +830,5 @@
 
 })();
 </script>
-
 </body>
 </html>

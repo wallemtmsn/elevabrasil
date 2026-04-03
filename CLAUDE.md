@@ -15,11 +15,13 @@ Landing page estática com sistema de cadastro/login de alunos, integrado ao Sup
 
 ```
 index.html                        # Página principal + modais de login/cadastro
-painel.html                       # Painel do aluno (perfil, foto, certificados, senha)
-admin.html                        # Painel de administração (dashboard + gestão de alunos)
+painel.html                       # Painel do aluno (perfil, cursos, certificados, senha)
+admin.html                        # Painel de administração (dashboard, alunos, cursos)
 politica-de-privacidade.html      # Política de privacidade
 supabase_setup.sql                # SQL de criação das tabelas iniciais
 supabase_admin_setup.sql          # SQL do painel admin (coluna role + policies + função is_admin)
+supabase_cursos_setup.sql         # SQL da tabela cursos + função get_profiles_with_email
+supabase_video_setup.sql          # SQL para adicionar coluna video_url em cursos
 assets/
   css/styles.css                  # Estilos customizados
   js/main.js                      # Scripts da landing page
@@ -61,12 +63,32 @@ Criada com `SECURITY DEFINER` para evitar recursão infinita nas policies RLS.
 | Admin atualiza qualquer perfil | UPDATE | `auth.uid() = id OR is_admin()` |
 | Admin deleta qualquer perfil | DELETE | `auth.uid() = id OR is_admin()` |
 
+## Tabela `public.cursos`
+
+- Campos: `id`, `titulo`, `descricao`, `carga_horaria`, `valor`, `video_url`, `ativo`, `criado_em`, `atualizado_em`
+- `video_url` — URL do player do Vimeo (ex: `https://player.vimeo.com/video/123456789`), exibida como `<iframe>` no painel do aluno
+- RLS habilitado — apenas admin cria/edita/deleta; autenticados leem cursos ativos
+- Gerenciada pelo admin via `admin.html`, visualizada pelo aluno via `painel.html`
+
+### Função `public.get_profiles_with_email()`
+
+- Faz JOIN entre `public.profiles` e `auth.users` para expor o e-mail
+- `SECURITY DEFINER` — só retorna dados se o chamador for admin (`is_admin()`)
+- Usada no admin para exibir e-mail na tabela de alunos e exportar CSV
+
 ## Painel Admin (`admin.html`)
 
 - Acesso restrito: exige sessão ativa + `role = 'admin'` na tabela `profiles`
-- **Dashboard:** total de alunos, novos nos últimos 7 e 30 dias, cadastros recentes
-- **Gestão de alunos:** tabela completa, busca em tempo real, edição e exclusão via modal
+- **Dashboard:** total de alunos, novos nos últimos 7 e 30 dias, total de cursos ativos, cadastros recentes com e-mail
+- **Gestão de alunos:** tabela com e-mail, CPF, telefone, empresa; busca em tempo real; edição e exclusão via modal; exportar CSV
+- **Gestão de cursos:** criar, editar, desativar e excluir cursos; busca em tempo real
 - Script embutido no próprio `admin.html` (não usa `auth.js`)
+
+## Painel do Aluno (`painel.html`)
+
+- Seções: Visão Geral, Meu Perfil, **Cursos Disponíveis**, Certificados, Segurança
+- Cursos: carrega da tabela `cursos` (apenas ativos), exibe cards com título, descrição, carga horária e valor
+- Seções dinâmicas controladas por `showSection(name)` — ao navegar para 'cursos' chama `loadCursos()`
 
 ## Cores (Tailwind custom)
 
